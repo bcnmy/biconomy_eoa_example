@@ -32,7 +32,7 @@ export default function Home() {
       chainId: 80002,
       name: "Polygon Amoy",
       providerUrl: "https://rpc-amoy.polygon.technology/",
-      incrementCountContractAdd: "0xfeec89eC2afD503FF359487967D02285f7DaA9aD",
+      incrementCountContractAdd: "0xcf29227477393728935BdBB86770f8F81b698F1A",
       biconomyPaymasterApiKey: "TVDdBH-yz.5040805f-d795-4078-9fd1-b668b8817642",
       explorerUrl: "https://www.oklink.com/amoy/tx/",
     },
@@ -100,7 +100,14 @@ export default function Home() {
       const tx1 = {
         to: contractAddress,
         data: minTx.data,
+        value: ethers.utils.parseEther("0.5"),
       };
+
+      // const tx1 = {
+      //   to: "0xFe858b41C59C99A86a0569CD5e57c29096f619a2",
+      //   data: "0x",
+      //   value: ethers.utils.parseEther("5")
+      // }
 
       toast.update(toastId, {
         render: "Sending Transaction",
@@ -114,6 +121,15 @@ export default function Home() {
       //@ts-ignore
       const { transactionHash } = await userOpResponse.waitForTxHash();
       console.log("Transaction Hash", transactionHash);
+      console.log("UserOp Response", userOpResponse);
+      //@ts-ignore
+      const userOpReceipt = await userOpResponse.wait();
+      console.log("UserOp receipt", userOpReceipt);
+      console.log("Success", userOpReceipt.success);
+      if (userOpReceipt.success == "true") {
+        console.log("UserOp receipt", userOpReceipt);
+        console.log("Transaction receipt", userOpReceipt.receipt);
+      }
 
       if (transactionHash) {
         toast.update(toastId, {
