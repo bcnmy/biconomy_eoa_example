@@ -114,6 +114,16 @@ export default function Home() {
         autoClose: false,
       });
 
+      const userOp = await smartAccount?.buildUserOp(
+        //@ts-ignore
+        [tx1],
+        {
+          paymasterServiceData: { mode: PaymasterMode.SPONSORED },
+        }
+      );
+
+      console.log("UserOp", userOp);
+
       //@ts-ignore
       const userOpResponse = await smartAccount?.sendTransaction(tx1, {
         paymasterServiceData: { mode: PaymasterMode.SPONSORED },
