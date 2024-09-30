@@ -89,14 +89,46 @@ export default function Home() {
     //   biconomyPaymasterApiKey: "R2dBqxHh_.31a6a61d-3bb9-4f5c-ab4d-c3f064115a97",
     //   explorerUrl: "https://sepolia.kakarotscan.org/",
     // },
+    // {
+    //   chainId: 1329,
+    //   name: "Sei Mainnet",
+    //   providerUrl: "https://evm-rpc.sei-apis.com/",
+    //   incrementCountContractAdd: "0xcf29227477393728935BdBB86770f8F81b698F1A",
+    //   biconomyPaymasterApiKey: "5qf_XJpWY.b73ac4f9-4438-42b5-a4fc-e2460067c350",
+    //   explorerUrl: "https://seitrace.com",
+    // },
     {
-      chainId: 1329,
-      name: "Sei Mainnet",
-      providerUrl: "https://evm-rpc.sei-apis.com/",
+      chainId: 4202,
+      name: "Lisk Sepolia",
+      providerUrl: "https://rpc.sepolia-api.lisk.com",
       incrementCountContractAdd: "0xcf29227477393728935BdBB86770f8F81b698F1A",
-      biconomyPaymasterApiKey: "5qf_XJpWY.b73ac4f9-4438-42b5-a4fc-e2460067c350",
-      explorerUrl: "https://seitrace.com",
+      biconomyPaymasterApiKey: "l7kF2E-Hc.cd96ec32-6720-4081-8e03-0f6fe4d6988c",
+      explorerUrl: "https://sepolia-blockscout.lisk.com",
     },
+    // {
+    //   chainId: 1135,
+    //   name: "Lisk",
+    //   providerUrl: "https://rpc.api.lisk.com",
+    //   incrementCountContractAdd: "0xcf29227477393728935BdBB86770f8F81b698F1A",
+    //   biconomyPaymasterApiKey: "AXdaGFvDW.36aed83a-b8b8-48c1-a693-098703b0e658",
+    //   explorerUrl: "https://blockscout.lisk.com",
+    // },
+    // {
+    //   chainId: 1740,
+    //   name: "Metal L2 Testnet",
+    //   providerUrl: "https://testnet.rpc.metall2.com",
+    //   incrementCountContractAdd: "0xcf29227477393728935BdBB86770f8F81b698F1A",
+    //   biconomyPaymasterApiKey: "wsscvLgUZ.c6ae8dad-e41c-4013-8f4d-bbb4d2518309",
+    //   explorerUrl: "https://testnet.explorer.metall2.com",
+    // },
+    // {
+    //   chainId: 1750,
+    //   name: "Metal L2",
+    //   providerUrl: "https://rpc.metall2.com",
+    //   incrementCountContractAdd: "0xcf29227477393728935BdBB86770f8F81b698F1A",
+    //   biconomyPaymasterApiKey: "6tfPQRhWq.16e5b9a0-d25e-49e4-b347-78e4081d75d9",
+    //   explorerUrl: "https://explorer.metall2.com",
+    // },
     {
       chainId: 80002,
       name: "Polygon Amoy",
@@ -113,18 +145,18 @@ export default function Home() {
       const provider = new ethers.providers.Web3Provider(ethereum);
       await provider.send("eth_requestAccounts", []);
       const signer = provider.getSigner();
-      // const address = await signer.getAddress();
-      // console.log("Address", address);
+      const address = await signer.getAddress();
+      console.log("Address", address);
 
       // const customChain = getCustomChain(
-      //   "Boba Mainnet",
+      //   "Metal L2 Testnet",
       //   chains[chainSelected].chainId,
       //   chains[chainSelected].providerUrl,
       //   chains[chainSelected].explorerUrl
       // );
 
       // const pvtkey =
-      //   "";
+      //   "594edcacdca6ce00140b3f6078c17af2899e88721277a9a3118d048095dbb451";
       // const account = privateKeyToAccount(`0x${pvtkey}`);
 
       // const walletClientWithCustomChain = createWalletClient({
@@ -136,13 +168,13 @@ export default function Home() {
       const config = {
         biconomyPaymasterApiKey: chains[chainSelected].biconomyPaymasterApiKey,
         // bundlerUrl: `https://bundler.biconomy.io/api/v2/${chains[chainSelected].chainId}/nJPK7B3ru.dd7f7861-190d-41bd-af80-6877f74b8f44`,
-        bundlerUrl: `https://bundler.biconomy.io/api/v2/${chains[chainSelected].chainId}/dewj402.wh1289hU-7E49-85b-af80-779ilts88`,
+        bundlerUrl: `https://bundler.biconomy.io/api/v2/${chains[chainSelected].chainId}/dewj402.wh1289hU-7E49-85b-af80-1182bvng7`,
       };
 
       // const smartAccountCustomChain = await createSmartAccountClient({
       //   signer: walletClientWithCustomChain,
-      //   bundlerUrl: `https://bundler.biconomy.io/api/v2/${chains[chainSelected].chainId}/dewj402.wh1289hU-7E49-85b-af80-778ghyuYM`,
-      //   // bundlerUrl: config.bundlerUrl,
+      //   // bundlerUrl: `https://bundler.biconomy.io/api/v2/${chains[chainSelected].chainId}/dewj402.wh1289hU-7E49-85b-af80-778ghyuYM`,
+      //   bundlerUrl: config.bundlerUrl,
       //   biconomyPaymasterApiKey: chains[chainSelected].biconomyPaymasterApiKey,
       //   customChain,
       // });
@@ -230,10 +262,12 @@ export default function Home() {
         // console.log("User Op", userOp);
 
         //@ts-ignore
-        const userOpResponse = await smartAccount?.sendTransaction(tx1
-          //   {
-          //   paymasterServiceData: { mode: PaymasterMode.SPONSORED },
-          // }
+        const userOpResponse = await smartAccount?.sendTransaction(
+          //@ts-ignore
+          tx1,
+          {
+            paymasterServiceData: { mode: PaymasterMode.SPONSORED },
+          }
         );
         //@ts-ignore
         const { transactionHash } = await userOpResponse.waitForTxHash();
