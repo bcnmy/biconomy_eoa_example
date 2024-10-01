@@ -34,7 +34,7 @@ export default function Home() {
       providerUrl: "https://rpc-amoy.polygon.technology/",
       incrementCountContractAdd: "0xcf29227477393728935BdBB86770f8F81b698F1A",
       biconomyPaymasterApiKey: "TVDdBH-yz.5040805f-d795-4078-9fd1-b668b8817642",
-      explorerUrl: "https://www.oklink.com/amoy/tx/",
+      explorerUrl: "https://amoy.polygonscan.com/tx/",
     },
   ];
 
@@ -102,12 +102,6 @@ export default function Home() {
         data: minTx.data,
         value: ethers.utils.parseEther("0.5"),
       };
-
-      // const tx1 = {
-      //   to: "0xFe858b41C59C99A86a0569CD5e57c29096f619a2",
-      //   data: "0x",
-      //   value: ethers.utils.parseEther("5")
-      // }
 
       toast.update(toastId, {
         render: "Sending Transaction",
